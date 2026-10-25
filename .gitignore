@@ -31,6 +31,12 @@ reports/
 # nmap/gobuster geçici dosyaları
 karabiber_nmap_*.xml
 
+# Tanıtım ekran görüntüleri — kod ağacına girmez, GitHub release asset
+# olarak tutulur ve README'den o URL'lerle gösterilir.
+karabiber1.png
+yorum.png
+yorum2.png
+
 # Editör / OS
 .vscode/
 .idea/

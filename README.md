@@ -24,6 +24,22 @@ bulguları yapılandırılmış biçimde raporlar ve (opsiyonel) yerel bir LLM i
 
 ---
 
+## 📸 Ekran Görüntüleri
+
+**`yak <hedef> --ai` — banner + canlı tarama akışı**
+
+![Karabiber banner ve tarama akışı](https://github.com/Farukzi0/Karabiber/releases/download/v1.0.0/karabiber1.png)
+
+**Rapor — açık portlar, web servisleri ve bulunan yollar (gobuster)**
+
+![Karabiber tarama raporu](https://github.com/Farukzi0/Karabiber/releases/download/v1.0.0/yorum2.png)
+
+**AI yorum paneli (ÖNERİ) — durum özeti + sıradaki adımlar**
+
+![Karabiber AI yorum paneli](https://github.com/Farukzi0/Karabiber/releases/download/v1.0.0/yorum.png)
+
+---
+
 ## Özellikler
 
 - **nmap sarmalayıcı** — `subprocess` ile `nmap -sV -oX`, çıktıyı `xml.etree`
