@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "karabiber"
+version = "1.0.0"
+description = "Yetkili/legal ortamlar için modüler recon (keşif) otomasyonu aracı"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "PyYAML>=6.0",
+    "requests>=2.31",
+    "textual>=0.60",
+    "rich>=13.0",
+    "pyfiglet>=1.0",
+]
+
+[project.scripts]
+# İki konsol komutu:
+#   karabiber  -> sadece banner'ı gösteren splash ekranı
+#   yak        -> asıl araç (tarama), örn. 'yak 10.10.10.10'
+karabiber = "karabiber.banner:banner_cli"
+yak = "karabiber.cli:main"
+
+[tool.setuptools]
+packages = ["karabiber", "karabiber.modules"]

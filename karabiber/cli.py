@@ -22,8 +22,8 @@ _BANNER_WARNING = (
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="karabiber",
-        description="Karabiber — yetkili/legal ortamlar için modüler recon aracı.",
+        prog="yak",
+        description="Karabiber (yak) — yetkili/legal ortamlar için modüler recon aracı.",
         epilog=_BANNER_WARNING,
     )
     p.add_argument("target", nargs="?", help="Hedef IP veya hostname")
@@ -79,9 +79,9 @@ def _prompt_target() -> str | None:
     if not sys.stdin.isatty():
         return None
     print(
-        "\nÖrnek:  python main.py 10.10.10.10 --profile stealth -o rapor.json\n"
+        "\nÖrnek:  yak 10.10.10.10 --profile stealth -o rapor.json\n"
         "Bayraklar: --profile {aggressive,normal,stealth}  --ai  --tui  -o DOSYA"
-        "   (tümü için -h)\n",
+        "   (tümü için: yak -h)\n",
         file=sys.stderr,
     )
     try:

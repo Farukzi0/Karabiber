@@ -52,3 +52,15 @@ def print_banner(stream=sys.stderr, color: bool = True) -> None:
 
     print(logo, file=stream)
     print(subtitle, file=stream)
+
+
+def banner_cli() -> int:
+    """'karabiber' konsol komutu: yalnızca banner'ı gösteren splash ekranı.
+
+    Tarama yapmaz; asıl araç 'yak <ip>' komutudur.
+    """
+    print_banner(stream=sys.stdout)
+    print("\nTaramak için:  yak <ip>      (örn. yak 10.10.10.10)", file=sys.stdout)
+    print("Yardım / bayraklar:  yak -h", file=sys.stdout)
+    return 0
+

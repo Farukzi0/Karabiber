@@ -74,8 +74,10 @@ uygulayıp `modules/__init__.py` içindeki `MODULE_ORDER`'a eklemek yeterli.
 ## Kurulum
 
 ```bash
-# Python bağımlılıkları
-pip install -r requirements.txt
+# Projeyi kurulabilir komut olarak yükle (karabiber + yak komutlarını sağlar)
+pip install -e .
+# (ya da sadece bağımlılıklar + python main.py ile çalıştırmak için:)
+#   pip install -r requirements.txt
 
 # Harici araçlar (Python paketi değildir!)
 sudo apt install nmap gobuster      # Debian / Kali
@@ -92,19 +94,33 @@ verip bunu ezebilir. AI katmanı **varsayılan olarak kapalıdır**; açmak içi
 
 ## Kullanım
 
+`pip install -e .` sonrası iki komut gelir:
+
+- **`karabiber`** — sadece banner'ı gösteren tanıtım/splash ekranı (tarama yapmaz).
+- **`yak`** — asıl araç. `yak <hedef>` ile tarama yapar.
+
 ```bash
+# Sadece banner
+karabiber
+
+# Argümansız: banner + örnek + interaktif "Hedef IP:" sorusu
+yak
+
 # Varsayılan (aggressive) profil, terminal raporu
-python main.py 10.10.10.10
+yak 10.10.10.10
 
 # Profil + JSON çıktısı
-python main.py 10.10.10.10 --profile stealth -o rapor.json
+yak 10.10.10.10 --profile stealth -o rapor.json
 
 # TUI
-python main.py 10.10.10.10 --tui
+yak 10.10.10.10 --tui
 
 # AI yorum katmanını AÇ (yerel Ollama gerekir), onayı atla (yetkili lab)
-python main.py 10.10.10.10 --ai --yes
+yak 10.10.10.10 --ai --yes
 ```
+
+> Kurulum yapmadan da çalışır: her `yak` yerine `python main.py` yazabilirsiniz
+> (ör. `python main.py 10.10.10.10 --ai`).
 
 ## Tarama Profilleri
 
