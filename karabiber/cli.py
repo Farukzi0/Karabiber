@@ -70,6 +70,28 @@ def _confirm_authorization(target: str, assume_yes: bool) -> bool:
     return ans in ("e", "evet", "y", "yes")
 
 
+def _prompt_target() -> str | None:
+    """Hedef bayrağı verilmeden çalıştırıldığında interaktif karşılama.
+
+    Banner'dan sonra kısa bir örnek gösterir ve hedefi sorar. Girdi bir
+    terminale bağlı değilse (pipe/CI) None döner ki çağıran yardım bassın.
+    """
+    if not sys.stdin.isatty():
+        return None
+    print(
+        "\nÖrnek:  python main.py 10.10.10.10 --profile stealth -o rapor.json\n"
+        "Bayraklar: --profile {aggressive,normal,stealth}  --ai  --tui  -o DOSYA"
+        "   (tümü için -h)\n",
+        file=sys.stderr,
+    )
+    try:
+        target = input("Hedef IP / host (boş = çıkış): ").strip()
+    except (EOFError, KeyboardInterrupt):
+        print(file=sys.stderr)
+        return None
+    return target or None
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -77,8 +99,13 @@ def main(argv: list[str] | None = None) -> int:
 
     print_banner()
 
-    if not args.target:
-        parser.print_help()
+    target = args.target
+    if not target:
+        target = _prompt_target()
+    if not target:
+        # Interaktif değil ya da boş girildi: yardım bas, çık.
+        if not sys.stdin.isatty():
+            parser.print_help()
         return 2
 
     try:
@@ -94,7 +121,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Profil hatası: {exc}", file=sys.stderr)
         return 1
 
-    if not _confirm_authorization(args.target, args.yes):
+    if not _confirm_authorization(target, args.yes):
         print("Onay verilmedi. Çıkılıyor.", file=sys.stderr)
         return 1
 
@@ -108,7 +135,7 @@ def main(argv: list[str] | None = None) -> int:
         except ImportError as exc:
             print(f"TUI için 'textual' gerekli: {exc}", file=sys.stderr)
             return 1
-        run_tui(config, args.target, profile, use_llm, args.output)
+        run_tui(config, target, profile, use_llm, args.output)
         return 0
 
     # --- CLI yolu ---
@@ -120,7 +147,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"[{event}] {message}", file=sys.stderr)
 
     engine = ReconEngine(config, profile=profile, use_llm=use_llm, progress=progress)
-    report = engine.run(args.target)
+    report = engine.run(target)
 
     print_summary(report)
     if args.output:
