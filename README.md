@@ -28,15 +28,15 @@ bulguları yapılandırılmış biçimde raporlar ve (opsiyonel) yerel bir LLM i
 
 **`yak <hedef> --ai` — banner + canlı tarama akışı**
 
-![Karabiber banner ve tarama akışı](https://github.com/Farukzi0/Karabiber/releases/download/v1.0.0/karabiber1.png)
+![Karabiber banner ve tarama akışı](https://raw.githubusercontent.com/Farukzi0/Karabiber/assets/karabiber1.png)
 
 **Rapor — açık portlar, web servisleri ve bulunan yollar (gobuster)**
 
-![Karabiber tarama raporu](https://github.com/Farukzi0/Karabiber/releases/download/v1.0.0/yorum2.png)
+![Karabiber tarama raporu](https://raw.githubusercontent.com/Farukzi0/Karabiber/assets/yorum2.png)
 
 **AI yorum paneli (ÖNERİ) — durum özeti + sıradaki adımlar**
 
-![Karabiber AI yorum paneli](https://github.com/Farukzi0/Karabiber/releases/download/v1.0.0/yorum.png)
+![Karabiber AI yorum paneli](https://raw.githubusercontent.com/Farukzi0/Karabiber/assets/yorum.png)
 
 ---
 
