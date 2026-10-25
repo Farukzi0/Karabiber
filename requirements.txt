@@ -1,0 +1,11 @@
+# Karabiber bağımlılıkları
+# Harici araçlar (nmap, gobuster) ayrıca sistemde kurulu olmalıdır.
+
+PyYAML>=6.0          # config.yaml okuma
+requests>=2.31       # HTTP analizi, gobuster follow-up, Ollama istekleri
+textual>=0.60        # TUI
+rich>=13.0           # terminal raporu (textual ile birlikte gelir)
+pyfiglet>=1.0        # ASCII logo
+
+# Not: nmap ve gobuster Python paketi DEĞİLDİR; sistem paketleridir:
+#   sudo apt install nmap gobuster      (Debian/Kali)

@@ -1,0 +1,85 @@
+# Karabiber yapılandırma dosyası
+# Tüm ayarlar burada; kodda hardcoded değer yok.
+
+# Varsayılan tarama profili (CTF/lab için agresif önerilir)
+default_profile: aggressive
+
+# gobuster için GENEL (varsayılan) kelime listesi yolu.
+# Kali/SecLists ortamına göre düzenleyin. Her profil aşağıda kendi
+# 'wordlist' alanıyla bunu ezebilir (yoksa bu kullanılır).
+wordlist: /usr/share/wordlists/dirb/common.txt
+
+# nmap ile taranacak portlar. "default" -> nmap'in kendi varsayılan 1000 portu.
+# Örn: "1-1000" veya "80,443,8080,8443" verilebilir.
+ports: default
+
+# gobuster'ın deneyeceği GENEL dosya uzantıları.
+# Dikkat: her uzantı, her kelime için ek bir istek demektir (hız ↔ kapsam).
+# Profiller aşağıda kendi 'gobuster_extensions' alanıyla bunu ezebilir.
+gobuster_extensions:
+  - php
+  - html
+  - txt
+  - bak
+
+# HTTP istekleri için ayarlar
+http:
+  timeout: 8          # saniye
+  user_agent: "Karabiber/1.0 (authorized-recon)"
+  verify_tls: false   # lab ortamlarında self-signed sertifikalar yaygındır
+
+# Sızıntı/yanlış-yapılandırma avında denenecek klasik yollar
+leak_paths:
+  - /.git/HEAD
+  - /.git/config
+  - /.env
+  - /backup.zip
+  - /backup.tar.gz
+  - /config.php.bak
+  - /config.php~
+  - /.htaccess
+  - /.htpasswd
+  - /wp-config.php.bak
+  - /db.sql
+  - /dump.sql
+  - /.DS_Store
+  - /phpinfo.php
+  - /server-status
+
+# LLM (Ollama) katmanı - opsiyonel ve VARSAYILAN OLARAK KAPALI.
+# AI yerel modeli çalıştırır; yavaş makinelerde CPU/fanı ciddi yorabilir,
+# küçük modellerin çıktısı da güvenilmez olabilir. Bu yüzden CLI'da yalnızca
+# '--ai' bayrağı verilince devreye girer (bkz. README).
+#   enabled: alt sistem kullanılabilir mi (donanım master switch). false ise
+#            '--ai' verilse bile AI atlanır.
+llm:
+  enabled: true
+  base_url: http://localhost:11434
+  model: qwen2.5:3b
+  timeout: 60         # LLM yavaş olabilir, geniş tutuldu
+  temperature: 0.2
+
+# Tarama profilleri. Her profil nmap zamanlama şablonunu ve gobuster
+# thread/delay değerlerini BİRLİKTE ayarlar. İsteğe bağlı olarak profil
+# kendi 'wordlist' ve 'gobuster_extensions' değerini verip genel ayarı
+# ezebilir; vermezse yukarıdaki genel değerler kullanılır.
+profiles:
+  aggressive:
+    description: "CTF / izole lab. Hız önceliklidir, gürültü umursanmaz."
+    nmap_timing: T4
+    gobuster_threads: 80        # CTF'te yüksek eşzamanlılık = hızlı dizin keşfi
+    gobuster_delay_ms: 0
+    # Hız için kısa/orta bir liste ve az uzantı: istek sayısını düşürür.
+    # Daha geniş listeler (SecLists big.txt) burada değiştirilebilir.
+    wordlist: /usr/share/wordlists/dirb/common.txt
+    gobuster_extensions: [php, html, txt]
+  normal:
+    description: "Dengeli. Yetkili ama paylaşımlı test ortamları."
+    nmap_timing: T3
+    gobuster_threads: 30
+    gobuster_delay_ms: 50
+  stealth:
+    description: "Yavaş ve sessiz. IDS/WAF, rate-limit ve IP-ban riski olan yetkili gerçek hedefler."
+    nmap_timing: T1
+    gobuster_threads: 5
+    gobuster_delay_ms: 400

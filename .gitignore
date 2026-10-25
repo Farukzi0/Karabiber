@@ -1,0 +1,38 @@
+# Python bytecode / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Sanal ortamlar
+.venv/
+venv/
+env/
+ENV/
+
+# Dağıtım / paketleme
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test / kapsam
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Araç çıktıları (tarama raporları)
+*.json
+!config*.json
+rapor*.json
+reports/
+
+# nmap/gobuster geçici dosyaları
+karabiber_nmap_*.xml
+
+# Editör / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
